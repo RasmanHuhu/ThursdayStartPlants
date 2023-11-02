@@ -1,0 +1,8 @@
+POST http://localhost:7070/plants
+
+ {"plantID": 7,
+"plantType": "Rose",
+"name": "Jon",
+"maxHeight": 80,
+"price": 50
+}
