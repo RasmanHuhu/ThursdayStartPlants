@@ -13,10 +13,10 @@ public class PlantController implements iPlantController {
     //#1 - hiver dataen ind fra instansen af min PlantDAOMock - "plantDAOMock" (linje 13)
     //Fordi vi bruger Handler, fremfor void, så behøver vi ikke tilføje "throws x exception", selvom vi wrapper i try/catch
     @Override
-    public Handler getAllPlants() {
+    public Handler getAll() {
         return ctx -> {
             try {
-           ctx.json(plantDAOMock.getAllPlants());
+           ctx.json(plantDAOMock.getAll());
            ctx.status(202);
             } catch (Exception e) {
                 throw new ApiException(500, "internal server error");
@@ -24,11 +24,11 @@ public class PlantController implements iPlantController {
         };
     }
 
-    @Override
-    public Handler getPlantByType(String plantType) {
+
+    public Handler getByType(String type) {
         return ctx -> {
             try {
-                ctx.json(plantDAOMock.getPlantByType(plantType));
+                ctx.json(plantDAOMock.getByType(type));
                 ctx.status(202);
             } catch (Exception e) {
                 throw new ApiException(500, "internal server error");
@@ -37,8 +37,8 @@ public class PlantController implements iPlantController {
     }
 
     //#2
-    @Override
-    public Handler getPlantById(int id) {
+
+    public Handler getById(int id) {
         return ctx -> {
             ctx.pathParam("id");
             ctx.json(plantDAOMock.getById(id));
@@ -59,7 +59,7 @@ public class PlantController implements iPlantController {
 
     //Behøver ikke (PlantDTO plant), som opgaven beder mig om, fordi jeg allerede deklarerer den i linje 61.
     //Interface kontrakt passer.
-    public Handler addPlant() {
+    public Handler add() {
         return ctx -> {
                 PlantDTO newPlant = ctx.bodyAsClass(PlantDTO.class);
                 ctx.status(201);

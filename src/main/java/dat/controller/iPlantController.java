@@ -8,16 +8,16 @@ public interface iPlantController {
 
 
     //#1
-    public Handler getAllPlants();
+    public Handler getAll();
 
     //#2
-    public Handler getPlantByType(String plantType);
+    public Handler getByType(String type);
 
     //#3
-    public Handler getPlantById(int id);
+    public Handler getById(int id);
 
     //#4
-    public Handler addPlant();
+    public Handler add();
 
     //#5 - ikke i brug, men del af CRUD
     // public Handler deletePlant();

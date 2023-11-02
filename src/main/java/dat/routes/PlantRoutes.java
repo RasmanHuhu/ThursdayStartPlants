@@ -8,7 +8,7 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class PlantRoutes {
 
-    //Denne skal ikke
+    //Denne skal ikke være static!
     private final PlantController plantController = new PlantController();
 
 
@@ -19,21 +19,21 @@ public class PlantRoutes {
     public EndpointGroup PlantRoutes(){
         return() ->
                 path("/plants", () -> {
-                    get("/", plantController.getAllPlants());
+                    get("/", plantController.getAll());
 
                     get("/{id}", ctx -> {
                                 int id = Integer.parseInt(ctx.pathParam("id"));
-                                plantController.getPlantById(id).handle(ctx);
+                                plantController.getById(id).handle(ctx);
 
                             });
 
                         get("/type/{type}", ctx -> {
                                     String type = ctx.pathParam("type");
-                                    plantController.getPlantByType(type).handle(ctx);
+                                    plantController.getByType(type).handle(ctx);
 
                                 });
 
-                            post("/", plantController.addPlant());
+                            post("/", plantController.add());
 
                         });
                     }
