@@ -43,6 +43,8 @@ som brugernavn og kode og test connection.
 så den hedder det du ønsker at kalde din database. (f.eks. exam?)
 7. Ret 
 8. Vi fylder databasen op med de ting vi har i vores PlantCenterDB, så gennem Main og Javalin, så kan vi fylde op gennem Dev.http og Post metoden
+9. Sørg for at sikre at du ser all schemas
+
 
 ## Task #5
 
