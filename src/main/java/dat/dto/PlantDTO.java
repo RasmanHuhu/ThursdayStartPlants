@@ -3,7 +3,7 @@ package dat.dto;
 import lombok.*;
 
 
-//Task #1.3
+//Task #4.2
 
 @Data
 @Builder

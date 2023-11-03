@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 //Når vi implementerer IDAO som generic; så repræsenterer PlantDTO -- T -- fra IDAO'en
-public class PlantDAOMock implements IDAO<PlantDTO, String> {
+public class PlantDAOMock implements iDAO<PlantDTO, String> {
 
     //DAOMock leger database
 

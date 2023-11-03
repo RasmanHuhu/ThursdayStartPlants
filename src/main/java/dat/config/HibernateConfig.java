@@ -1,104 +1,107 @@
 package dat.config;
 
-import jakarta.persistence.EntityManagerFactory;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 
-import java.util.Properties;
 
 //---
 //TASK 4 - JPA - setup Setup a HibernateConfig class with a static method that returns an EntityManagerFactory
 //--
 
+import dat.entities.Plant;
+import dat.entities.Reseller;
+import jakarta.persistence.EntityManagerFactory;
+import lombok.NoArgsConstructor;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import java.util.Properties;
+
+
+@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class HibernateConfig {
-    private static EntityManagerFactory emf;
-    //    private static boolean isIntegrationTest = false; // this flag is set for
-    private static EntityManagerFactory emfTest;
 
-    //TASK 4 - JPA - setup Setup a HibernateConfig class with a static method that returns an EntityManagerFactory
-    public static EntityManagerFactory getEntityManagerFactory() {
-        if (emf == null)
-            emf = createEMF(false);
-        return emf;
-    }
-    public static EntityManagerFactory getEntityManagerFactoryForTest() {
-        if (emfTest == null)
-            emfTest = createEMF(true);
-        return emfTest;
-    }
-    // TODO: IMPORTANT: Add Entity classes here for them to be registered with Hibernate
-    private static void getAnnotationConfiguration(Configuration configuration) {
-    }
+    private static EntityManagerFactory entityManagerFactory;
 
-    private static EntityManagerFactory createEMF(boolean forTest) {
+    private static boolean forTest = false;
+
+    private static EntityManagerFactory buildEntityFactoryConfig() {
         try {
             Configuration configuration = new Configuration();
-            Properties props = new Properties();
-            // Set the properties
-            setBaseProperties(props);
-            if(forTest){ //|| isIntegrationTest) {
-                props = setTestProperties(props);
-            }
-            else if(System.getenv("DEPLOYED") != null) {
-                setDeployedProperties(props);
-            }
-            else {
-                props = setDevProperties(props);
-            }
-            configuration.setProperties(props);
-            getAnnotationConfiguration(configuration);
 
-            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-            SessionFactory sf = configuration.buildSessionFactory(serviceRegistry);
-            EntityManagerFactory emf = sf.unwrap(EntityManagerFactory.class);
-            return emf;
+            Properties props = new Properties();
+            String connctionURL = String.format("jdbc:postgresql://localhost:5432/postgres?currentSchema=public"); //TODO
+            props.put("hibernate.connection.url", connctionURL);
+            props.put("hibernate.connection.username", "postgres");
+            props.put("hibernate.connection.password", "postgres");
+            props.put("hibernate.show_sql", "true"); // show sql in console
+            props.put("hibernate.format_sql", "true"); // format sql in console
+            props.put("hibernate.use_sql_comments", "true"); // show sql comments in console
+
+            props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect"); // dialect for postgresql
+            props.put("hibernate.connection.driver_class", "org.postgresql.Driver"); // driver class for postgresql
+            props.put("hibernate.archive.autodetection", "class"); // hibernate scans for annotated classes
+            props.put("hibernate.current_session_context_class", "thread"); // hibernate current session context
+            props.put("hibernate.hbm2ddl.auto", "update"); // hibernate creates tables based on entities
+
+
+            return getEntityManagerFactory(configuration, props);
         } catch (Throwable ex) {
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
 
+    private static EntityManagerFactory buildEntityFactoryConfigTest() {
+        try {
+            Configuration configuration = new Configuration();
 
-    private static String getDBName() {
-        return "prod_db";
-    }
-    private static Properties setBaseProperties(Properties props){
-        props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        props.put("hibernate.connection.driver_class", "org.postgresql.Driver");
-        props.put("hibernate.hbm2ddl.auto", "update");
-        props.put("hibernate.current_session_context_class", "thread");
-        props.put("hibernate.show_sql", "true");
-        props.put("hibernate.format_sql", "true");
-        props.put("hibernate.use_sql_comments", "true");
-        return props;
+            Properties props = new Properties();
+            props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+            props.put("hibernate.connection.driver_class", "org.testcontainers.jdbc.ContainerDatabaseDriver");
+            props.put("hibernate.connection.url", "jdbc:tc:postgresql:15.3-alpine3.18:///test_db"); //TODO
+            props.put("hibernate.connection.username", "postgres");
+            props.put("hibernate.connection.password", "postgres");
+            props.put("hibernate.archive.autodetection", "class");
+            props.put("hibernate.show_sql", "true");
+            props.put("hibernate.hbm2ddl.auto", "create-drop");
+
+            return getEntityManagerFactory(configuration, props);
+        } catch (Throwable ex) {
+            System.err.println("Initial SessionFactory creation failed." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
     }
 
-    private static Properties setDeployedProperties(Properties props){
-        props.setProperty("hibernate.connection.url", System.getenv("CONNECTION_STR") + getDBName());
-        props.setProperty("hibernate.connection.username", System.getenv("DB_USERNAME"));
-        props.setProperty("hibernate.connection.password", System.getenv("DB_PASSWORD"));
-        return props;
+    private static EntityManagerFactory getEntityManagerFactory(Configuration configuration, Properties props) {
+        configuration.setProperties(props);
+
+        getAnnotationConfiguration(configuration);
+
+        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        System.out.println("Hibernate Java Config serviceRegistry created");
+
+        SessionFactory sf = configuration.buildSessionFactory(serviceRegistry);
+        return sf.unwrap(EntityManagerFactory.class);
     }
-    private static Properties setDevProperties(Properties props){
-        props.put("hibernate.connection.url", "jdbc:postgresql://localhost:5432/"+ getDBName());
-        props.put("hibernate.connection.username", "dev");
-        props.put("hibernate.connection.password", "ax2");
-        return props;
+
+    private static void getAnnotationConfiguration(Configuration configuration) {
+        configuration.addAnnotatedClass(Plant.class);
+        configuration.addAnnotatedClass(Reseller.class);
+        //TODO
     }
-    private static Properties setTestProperties(Properties props){
-//        props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        props.put("hibernate.connection.driver_class", "org.testcontainers.jdbc.ContainerDatabaseDriver");
-        props.put("hibernate.connection.url", "jdbc:tc:postgresql:15.3-alpine3.18:///test_db");
-        props.put("hibernate.connection.username", "postgres");
-        props.put("hibernate.connection.password", "postgres");
-//        props.put("hibernate.archive.autodetection", "class");
-//        props.put("hibernate.show_sql", "true");
-//        props.put("hibernate.hbm2ddl.auto", "create-drop");
-        return props;
+
+    public static EntityManagerFactory getEntityManagerFactoryConfig() {
+        if (entityManagerFactory == null) {
+            if(!forTest) {
+                entityManagerFactory = buildEntityFactoryConfig();
+            } else {
+                entityManagerFactory = buildEntityFactoryConfigTest();
+            }
+        }
+        return entityManagerFactory;
     }
-//    public static void setTestMode(boolean isTest) {
-//        isIntegrationTest = isTest;
-//    }
+
+    public static void setForTest(boolean test){
+        forTest = test;
+    }
 }
