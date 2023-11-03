@@ -21,6 +21,8 @@ public class PlantRoutes {
                 path("/plants", () -> {
                     get("/", plantController.getAll());
 
+
+
                     get("/{id}", ctx -> {
                                 int id = Integer.parseInt(ctx.pathParam("id"));
                                 plantController.getById(id).handle(ctx);

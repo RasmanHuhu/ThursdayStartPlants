@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManagerFactory;
 import java.util.*;
 import java.util.stream.Collectors;
 
+//Når vi implementerer IDAO som generic; så repræsenterer PlantDTO -- T -- fra IDAO'en
 public class PlantDAOMock implements IDAO<PlantDTO, String> {
 
     //DAOMock leger database
@@ -18,8 +19,6 @@ public class PlantDAOMock implements IDAO<PlantDTO, String> {
             3, new PlantDTO(3, "FruitAndBerries", "AromaApple", 350, 399.50),
             4, new PlantDTO(4, "Rhododendron", "Astrid", 40, 269.50),
             5, new PlantDTO(5, "Rose", "TheDarkLady", 100, 199.50)
-
-            //Hvordan populater jeg, uden en populate class?
 
     ));
 
@@ -33,47 +32,49 @@ public class PlantDAOMock implements IDAO<PlantDTO, String> {
     }
 
     public List<PlantDTO> getAll() {
-        try {
-            return new ArrayList<>(plantData.values());
-        } catch (ApiException e) {
-            throw new ApiException(500, "internal server error");
+        List<PlantDTO> plantList = new ArrayList<>(plantData.values());
+        if (!plantList.isEmpty()){
+            return plantList;
+        } else {
+            throw new ApiException(404, "Plants not found");
         }
     }
 
 
     public PlantDTO getById(int id) {
-        try {
-            return plantData.get(id);
-        } catch (ApiException e) {
-            throw new ApiException(500, "internal server error");
+        List<PlantDTO> plantList = new ArrayList<>(plantData.values());
+        if (id < plantList.size()) {
+            return plantList.get(id - 1);
+        } else {
+            throw new ApiException(404, "Not found");
         }
     }
 
-    //Før ville co-pilot smamneligne på en funktion der ikke fandtes.
-    //Nu tjekker om vi plantType2 er det samme som PlantType i Hashmappet (gennem DTO'en)
-    //Virker dog kun hvis public attributes? Problem ifht sikkerhed? Fiks senere
+    //Før ville co-pilot sammenligne på en funktion der ikke fandtes.
+    //Nu tjekker om vi plantType2 er det samme som PlantType i Hashmap'et (gennem DTO'en)
+    //Virker dog kun hvis public attributes? Problem ifht. sikkerhed? Fiks senere
 
     public List<PlantDTO> getByType(String type) {
-        try {
-            List<PlantDTO> plantsByType = new ArrayList<>();
+        List<PlantDTO> plantTypes = new ArrayList<>();
+        if (plantTypes != null) {
             for (PlantDTO plant : plantData.values()) {
                 if (plant.getPlantType().equals(type)) {
-                    plantsByType.add(plant);
+                    plantTypes.add(plant);
                 }
             }
-            return plantsByType;
-        } catch (ApiException e) {
-            throw new ApiException(500, "internal server error");
+            return plantTypes;
+        } else {
+            throw new ApiException(404, "Not found");
         }
     }
 
-
     public PlantDTO add(PlantDTO plant) {
-        try {
-            plantData.put(plant.getPlantID(), plant);
-            return plant;
-        } catch (ApiException e) {
-            throw new ApiException(500, "internal server error");
+        PlantDTO newPlant = new PlantDTO(plantData.size() + 1, plant.getPlantType(), plant.getName(), plant.getMaxHeight(), plant.getPrice());
+        if (newPlant != null) {
+        plantData.put(newPlant.getPlantID(), newPlant);
+            return newPlant;
+        } else {
+            throw new ApiException(404, "Not found");
         }
     }
 

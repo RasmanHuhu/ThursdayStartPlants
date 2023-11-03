@@ -4,7 +4,8 @@ import java.util.List;
 
 //GENERICS
 //OsteBolle = DTO (hehe)
-//TomatSmør =
+//TomatSmør = T
+//Kan fylde flere parametre på
 public interface IDAO <OsteBolle, TomatSmør> {
 
    List<OsteBolle> getAll();

@@ -1,9 +1,6 @@
 package dat.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 //Task #1.3
@@ -12,11 +9,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor // @AllArgsConstructor - laver en constructor med alle fields
 @NoArgsConstructor //Påkrævet hvis POST i dev.http skal virke
+@Getter
 public class PlantDTO {
     
     int plantID;   //Vigtigt med @AllArgsConstructor, for ellers får jeg ikke en constructor på ID
 
-     String plantType;
+    String plantType;
 
     String name;
 
@@ -24,4 +22,4 @@ public class PlantDTO {
 
     double price;
 
-    }
+}

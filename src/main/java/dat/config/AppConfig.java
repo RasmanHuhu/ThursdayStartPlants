@@ -12,7 +12,7 @@ public class AppConfig {
 public void startJavalin(EndpointGroup route, int port){
     Javalin app = Javalin.create().start(port);
     app.routes(route);
-    app.exception(ApiException.class, exceptionHandler::APIExceptionHandler);
+    app.exception(ApiException.class, exceptionHandler::ApiExceptionHandler);
 
     //Det her vil ikke fungere, for den kan ikke returner ctx som null
     // exceptionHandler.APIExceptionHandler(new ApiException(404, "Not found"), null);

@@ -8,10 +8,16 @@ import org.hibernate.service.ServiceRegistry;
 
 import java.util.Properties;
 
+//---
+//TASK 4 - JPA - setup Setup a HibernateConfig class with a static method that returns an EntityManagerFactory
+//--
+
 public class HibernateConfig {
     private static EntityManagerFactory emf;
     //    private static boolean isIntegrationTest = false; // this flag is set for
     private static EntityManagerFactory emfTest;
+
+    //TASK 4 - JPA - setup Setup a HibernateConfig class with a static method that returns an EntityManagerFactory
     public static EntityManagerFactory getEntityManagerFactory() {
         if (emf == null)
             emf = createEMF(false);
