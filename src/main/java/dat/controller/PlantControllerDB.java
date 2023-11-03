@@ -2,6 +2,8 @@ package dat.controller;
 
 import dat.ErrorHandling.ApiException;
 import dat.dao.PlantCenterDAO;
+import dat.dao.PlantDAOMock;
+import dat.dto.PlantDTO;
 import dat.entities.Plant;
 import io.javalin.http.Handler;
 
@@ -48,7 +50,7 @@ public class PlantControllerDB implements iPlantController {
     //Interface kontrakt passer.
     public Handler add() {
         return ctx -> {
-            Plant plant = ctx.bodyAsClass(Plant.class);
+            Plant plant = plantCenterDAO.add(ctx.bodyAsClass(PlantDTO.class));
             ctx.status(201);
         };
     }

@@ -29,7 +29,7 @@ public class HibernateConfig {
             Configuration configuration = new Configuration();
 
             Properties props = new Properties();
-            String connctionURL = String.format("jdbc:postgresql://localhost:5432/postgres?currentSchema=public"); //TODO
+            String connctionURL = String.format("jdbc:postgresql://localhost:5432/exam?currentSchema=public"); //TODO
             props.put("hibernate.connection.url", connctionURL);
             props.put("hibernate.connection.username", "postgres");
             props.put("hibernate.connection.password", "postgres");

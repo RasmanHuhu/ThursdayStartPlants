@@ -18,19 +18,19 @@ public class Plant {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private int id;
+    int id;
 
-    @Column
-    private String type;
+    @Column(name = "plantType")
+    String type;
 
-    @Getter
-    @Column
-    private String name;
+    @Column(name = "plantTame")
+    String name;
 
-    @Column
-    private int maxHeight;
+    @Column(name = "maxHeight")
+    int maxHeight;
 
-    private int price;
+    @Column(name = "price")
+    double price;
 
     //Det skal være et set, fordi sets kan have flere planter og derved flere resellers
 
@@ -39,5 +39,10 @@ public class Plant {
     @ManyToOne
     private Reseller reseller;
 
-
+    public Plant(String type, String name, int maxHeight, double price) {
+        this.type = type;
+        this.name = name;
+        this.maxHeight = maxHeight;
+        this.price = price;
+    }
 }

@@ -6,15 +6,15 @@ import java.util.List;
 //OsteBolle = T = hvad som helst
 //TomatSmør = K,
 //Kan fylde flere parametre på
-public interface iDAO<OsteBolle, TomatSmør> {
+public interface iDAO<T, K, G> {
 
-   List<OsteBolle> getAll();
+   List<T> getAll();
 
-   OsteBolle getById(int id);
+   T getById(int id);
 
-   List<OsteBolle> getByType(String type);
+   List<T> getByType(String type);
 
-   OsteBolle add(OsteBolle add);
+   G add(T add);
 
     //STREAMS-METODER? bør ikke være en del af din IDAO - de er jo blot en del af plantdaomock'en
     //List<OsteBolle> getThingsWithMaxHeight100();

@@ -1,5 +1,6 @@
 package dat.dao;
 
+import dat.config.HibernateConfig;
 import dat.dto.PlantDTO;
 import dat.entities.Plant;
 import dat.entities.Reseller;
@@ -10,11 +11,13 @@ import java.util.List;
 
 //#Task 4.4 Implement a PlantDAO class that implements the IDAO interface. The PlantDAO class should add
 //3 extra methods:
-public class PlantCenterDAO implements iDAO<PlantDTO, String> {
+public class PlantCenterDAO implements iDAO<PlantDTO, String, Plant> {
 
     //Lille søde plante objekt
     Plant plant = new Plant();
-    EntityManagerFactory emf;
+
+    //Husk
+    EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfig();
 
 
     @Override
@@ -43,12 +46,13 @@ public class PlantCenterDAO implements iDAO<PlantDTO, String> {
     }
 
     @Override
-    public PlantDTO add(PlantDTO plant) {
+    public Plant add(PlantDTO plantDTO) {
+        Plant plant = new Plant(plantDTO.getPlantType(), plantDTO.getName(), plantDTO.getMaxHeight(), plantDTO.getPrice());
         try (EntityManager em = emf.createEntityManager()) {
             //starter en transaction
             em.getTransaction().begin();
-            //tilføjer min plante
-            em.persist(plant);
+            //tilføjer min plante med merge, så den opdaterer så der er noget i databasen (blanding af persist og update)
+            em.merge(plant);
             //gemmer min plante
             em.getTransaction().commit();
             //returnerer min plante :)

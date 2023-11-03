@@ -38,11 +38,11 @@ Postgres:
 som brugernavn og kode og test connection.
 3. "create database exam" når den er connected (ctrl + k for at køre)
 4. Properties -> Schemas -> Fjern alle databaser og tilføj den ønskede
-3. Ret til i HibernateConfig ved AnnotatedClasses 
-4. Ret til i HibernateConfig ved DATABASE-navnet i linje 32, postgres, 
+5. Ret til i HibernateConfig ved AnnotatedClasses 
+6. Ret til i HibernateConfig ved DATABASE-navnet i linje 32, postgres, 
 så den hedder det du ønsker at kalde din database. (f.eks. exam?)
-5. Ret 
-
+7. Ret 
+8. Vi fylder databasen op med de ting vi har i vores PlantCenterDB, så gennem Main og Javalin, så kan vi fylde op gennem Dev.http og Post metoden
 
 ## Task #5
 

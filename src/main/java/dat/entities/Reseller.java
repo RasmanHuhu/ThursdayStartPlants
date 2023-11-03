@@ -23,16 +23,16 @@ public class Reseller {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    int id;
 
-    @Getter
     @Column(name = "name", length = 25)
-    private String name;
+    String name;
 
     @Column(name = "address", length = 25)
-    private String address;
+    String address;
 
-    private int phoneNr;
+    @Column(name = "phoneNr")
+    int phone;
 
     //Den som er many er tit en liste eller set. Fordi der er flere.
     //Plants er slave-side

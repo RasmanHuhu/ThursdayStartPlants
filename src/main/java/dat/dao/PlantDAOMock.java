@@ -2,13 +2,14 @@ package dat.dao;
 
 import dat.ErrorHandling.ApiException;
 import dat.dto.PlantDTO;
+import dat.entities.Plant;
 import jakarta.persistence.EntityManagerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 //Når vi implementerer IDAO som generic; så repræsenterer PlantDTO -- T -- fra IDAO'en
-public class PlantDAOMock implements iDAO<PlantDTO, String> {
+public class PlantDAOMock implements iDAO<PlantDTO, String, PlantDTO> {
 
     //DAOMock leger database
 

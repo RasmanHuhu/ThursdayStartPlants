@@ -17,8 +17,6 @@ public class PlantRoutes {
 
     iPlantController iplantController = new PlantControllerDB();
 
-
-
     //De metoder som vi kan se efter både get/post her, er dem jeg får fra controlleren
     //This is the juice, som viser os output i browseren/dev.html
     //Mine routes
