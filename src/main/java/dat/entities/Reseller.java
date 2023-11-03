@@ -36,7 +36,7 @@ public class Reseller {
 
     //Den som er many er tit en liste eller set. Fordi der er flere.
     //Plants er slave-side
-    @OneToMany(mappedBy = "reseller", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "reseller", orphanRemoval = true)
     private List<Plant> plants = new ArrayList<>();
 
 }

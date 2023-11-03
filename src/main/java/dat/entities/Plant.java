@@ -37,6 +37,7 @@ public class Plant {
     //Den som har ManyToOne, er blot et objekt - i det her tilfælde er reseller ONE
     //Reseller er owning side - da reselleren ejer flere planter
     @ManyToOne
+    @JoinColumn(name = "reseller_id")
     private Reseller reseller;
 
     public Plant(String type, String name, int maxHeight, double price) {
