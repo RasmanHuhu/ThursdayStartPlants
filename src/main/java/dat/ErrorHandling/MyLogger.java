@@ -18,7 +18,7 @@ public class MyLogger {
             fileHandler.setFormatter(new SimpleFormatter());
             // Add the FileHandler to the logger's handlers
             logger.addHandler(fileHandler);
-        } catch (IOException e) {
+        } catch (ApiException | IOException e) {
             // Handle IOException if it occurs and print the stack trace
             e.printStackTrace();
         }
