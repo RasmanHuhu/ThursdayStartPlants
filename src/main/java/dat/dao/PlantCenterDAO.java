@@ -21,27 +21,27 @@ public class PlantCenterDAO implements iDAO<PlantDTO, String, Plant> {
 
 
     @Override
-    public List<PlantDTO> getAll() {
+    public List<Plant> getAll() {
         //det try'en er her, er en try-with-resources, som automatisk lukker EntityManageren ned efter den er færdig med at bruge den
         try (EntityManager em = emf.createEntityManager()) {
             //Returner min liste af planter gennem en Query, som er en JPQL (Java Persistence Query Language)
-            return em.createQuery("SELECT p FROM Plant p", PlantDTO.class).getResultList();
+            return em.createQuery("SELECT p FROM Plant p", Plant.class).getResultList();
         }
     }
 
     @Override
-    public PlantDTO getById(int id) {
+    public Plant getById(int id) {
         try (EntityManager em = emf.createEntityManager()) {
             //finder mine planter på id
-            return em.find(PlantDTO.class, id);
+            return em.find(Plant.class, id);
         }
     }
 
     @Override
-    public List<PlantDTO> getByType(String type) {
+    public List<Plant> getByType(String type) {
         try (EntityManager em = emf.createEntityManager()) {
             //finder mine planter på type
-            return em.createQuery("SELECT p FROM Plant p WHERE p.type = :type", PlantDTO.class).setParameter("type", type).getResultList();
+            return em.createQuery("SELECT p FROM Plant p WHERE p.type = :type", Plant.class).setParameter("type", type).getResultList();
         }
     }
 

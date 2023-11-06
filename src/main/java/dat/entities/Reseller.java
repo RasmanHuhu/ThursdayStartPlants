@@ -31,12 +31,19 @@ public class Reseller {
     @Column(name = "address", length = 25)
     String address;
 
+    //String phone er smart ifht constructor og build i testclass senere. Den vil fejle hvis int provided.
     @Column(name = "phoneNr")
-    int phone;
+    String phone;
+
 
     //Den som er many er tit en liste eller set. Fordi der er flere.
     //Plants er slave-side
     @OneToMany(mappedBy = "reseller", orphanRemoval = true)
     private List<Plant> plants = new ArrayList<>();
 
+    public Reseller(String name, String address, String phone) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+    }
 }

@@ -23,7 +23,7 @@ public class Plant {
     @Column(name = "plantType")
     String type;
 
-    @Column(name = "plantTame")
+    @Column(name = "plantName")
     String name;
 
     @Column(name = "maxHeight")
@@ -39,6 +39,16 @@ public class Plant {
     @ManyToOne
     @JoinColumn(name = "reseller_id")
     private Reseller reseller;
+
+
+    //Overloader funktionen ved at lave 2 constructors
+    public Plant(int id, String type, String name, int maxHeight, double price) {
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.maxHeight = maxHeight;
+        this.price = price;
+    }
 
     public Plant(String type, String name, int maxHeight, double price) {
         this.type = type;

@@ -7,12 +7,14 @@ import java.util.List;
 //TomatSmør = K,
 //Kan fylde flere parametre på
 public interface iDAO<T, K, G> {
+   // iDAO<PlantDTO, String, Plant>
+   // --------T--------K-------G----
 
-   List<T> getAll();
+   List<G> getAll();
 
-   T getById(int id);
+   G getById(int id);
 
-   List<T> getByType(String type);
+   List<G> getByType(String type);
 
    G add(T add);
 

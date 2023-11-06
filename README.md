@@ -37,15 +37,30 @@ Postgres:
 2. Åben database ude til højre, postgres, skriv localhost som navn, skriv postgres + postgres 
 som brugernavn og kode og test connection.
 3. "create database exam" når den er connected (ctrl + k for at køre)
-4. Properties -> Schemas -> Fjern alle databaser og tilføj den ønskede
+4. Properties -> Schemas -> Fjern alle databaser og tilføj den ønskede (pil ned, vælg default/all schemas)
 5. Ret til i HibernateConfig ved AnnotatedClasses 
 6. Ret til i HibernateConfig ved DATABASE-navnet i linje 32, postgres, 
 så den hedder det du ønsker at kalde din database. (f.eks. exam?)
 7. Ret 
 8. Vi fylder databasen op med de ting vi har i vores PlantCenterDB, så gennem Main og Javalin, så kan vi fylde op gennem Dev.http og Post metoden
-9. Sørg for at sikre at du ser all schemas
+
+9. Når main er kørt, og du kan se created tables i databasen, så kører du dev.http med POST: localhost/5050/plants (eksempel) og fyrer
+din json-sætning af for at fylde op. (husk at ændre id'et, så det er unikt, ellers får du en fejl)
+--
+10. Til tests, så skal du sætte en test_db op, som din hibernate kobler op på ifht tests.
 
 
 ## Task #5
+
+Answer:
+Difference between Unit-test and this test?
+In a unit test, we're testing a single unit of code, where as in this test, we're testing a unit of code ontop of a server (plantdaoMock, which acts as our DB).
+This is more of an integrationtest as we're testing the integration of multiple things together.
+
+White box test - We know the code, we know what it does, we know what it should do, we know what it shouldn't do.
+
+Black box test - We don't know the code, we don't know what it does, we don't know what it should do, we don't know what it shouldn't do.
+
+
 
 ## Task #6

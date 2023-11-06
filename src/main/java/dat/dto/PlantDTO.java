@@ -22,4 +22,11 @@ public class PlantDTO {
 
     double price;
 
+    //Constructor brugt til tests
+    public PlantDTO(String plantType, String name, int maxHeight, double price) {
+        this.plantType = plantType;
+        this.name = name;
+        this.maxHeight = maxHeight;
+        this.price = price;
+    }
 }
