@@ -18,6 +18,8 @@ public interface iDAO<T, K, G> {
 
    G add(T add);
 
+
+
     //STREAMS-METODER? bør ikke være en del af din IDAO - de er jo blot en del af plantdaomock'en
     //List<OsteBolle> getThingsWithMaxHeight100();
     //List<TomatSmør> MapThingsNames();

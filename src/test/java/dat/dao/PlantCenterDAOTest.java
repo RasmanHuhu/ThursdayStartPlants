@@ -126,7 +126,7 @@ class PlantCenterDAOTest {
 
         // Assuming that you have an existing plant with a known ID, delete it.
         int plantIdToDelete = 1; // Replace with the actual ID of the plant you want to delete.
-        plantCenterDAO.deletePlant(plantIdToDelete);
+        plantCenterDAO.delete(plantIdToDelete);
 
         // Get the count of all plants after deleting.
         List<Plant> allPlantsAfter = plantCenterDAO.getAll();

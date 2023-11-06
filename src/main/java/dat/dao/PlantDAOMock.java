@@ -59,7 +59,7 @@ public class PlantDAOMock implements iDAO<PlantDTO, String, PlantDTO> {
         List<PlantDTO> plantTypes = new ArrayList<>();
         if (plantTypes != null) {
             for (PlantDTO plant : plantData.values()) {
-                if (plant.getPlantType().equals(type)) {
+                if (plant.getType().equals(type)) {
                     plantTypes.add(plant);
                 }
             }
@@ -70,7 +70,7 @@ public class PlantDAOMock implements iDAO<PlantDTO, String, PlantDTO> {
     }
 
     public PlantDTO add(PlantDTO plant) {
-        PlantDTO newPlant = new PlantDTO(plantData.size() + 1, plant.getPlantType(), plant.getName(), plant.getMaxHeight(), plant.getPrice());
+        PlantDTO newPlant = new PlantDTO(plantData.size() + 1, plant.getType(), plant.getName(), plant.getMaxHeight(), plant.getPrice());
         if (newPlant != null) {
         plantData.put(newPlant.getPlantID(), newPlant);
             return newPlant;
@@ -119,5 +119,20 @@ public class PlantDAOMock implements iDAO<PlantDTO, String, PlantDTO> {
         } catch (ApiException e) {
             throw new ApiException(500, "internal server error");
         }
+    }
+
+    public PlantDTO update(int id, PlantDTO plant) {
+        plant.setName(plant.getName());
+        plant.setType(plant.getType());
+        plant.setMaxHeight(plant.getMaxHeight());
+        plant.setPrice(plant.getPrice());
+
+        return plant;
+    }
+    public PlantDTO delete(int id) {
+        //Sletter id gennem mit Hashmap
+        PlantDTO plant = plantData.get(id);
+        plantData.remove(id);
+        return plant;
     }
 }

@@ -1,6 +1,10 @@
 # Eksamen
 
+![img.png](img.png)
+
 ## Task #1
+
+Hvis 
 
 ## Task #2.1
 
@@ -54,7 +58,7 @@ din json-sætning af for at fylde op. (husk at ændre id'et, så det er unikt, e
 
 Answer:
 Difference between Unit-test and this test?
-In a unit test, we're testing a single unit of code, where as in this test, we're testing a unit of code ontop of a server (plantdaoMock, which acts as our DB).
+In a unit test, we're testing a single unit of code, whereas in this test, we're testing a unit of code ontop of a server (plantdaoMock, which acts as our DB).
 This is more of an integrationtest as we're testing the integration of multiple things together.
 
 White box test - We know the code, we know what it does, we know what it should do, we know what it shouldn't do.

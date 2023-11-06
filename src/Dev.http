@@ -1,8 +1,47 @@
+// plant API
+//----------
+
+###
+//opretter en ny plante
 POST http://localhost:7070/plants
 
- {"plantID": 7,
-"plantType": "Rose",
-"name": "Jon",
-"maxHeight": 80,
-"price": 50
+{
+"plantName": "OliveTree",
+"plantType": "Tree",
+"maxHeight": 1000,
+"price": 1499.50
 }
+
+###
+//Get all plants
+GET {{url}}/plants
+Authorization: Bearer {{token}}
+
+###
+//Get plant with id 1
+GET {{url}}/plants/1
+Authorization: Bearer {{token}}
+
+###
+//Get plant with id 10
+GET {{url}}/plants/10
+Authorization: Bearer {{token}}
+###
+//Get plant with type rose
+GET {{url}}/plants/type/rose
+Authorization: Bearer {{token}}
+
+###
+//Går ind og updater plant med id 1
+POST {{url}}/plants
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "plantType": "Rose",
+  "name": "Gallicanae",
+  "maxHeight": 350,
+  "price": 299.0
+}
+
+###

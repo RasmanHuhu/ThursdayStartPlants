@@ -14,7 +14,7 @@ public class PlantDTO {
     
     int plantID;   //Vigtigt med @AllArgsConstructor, for ellers får jeg ikke en constructor på ID
 
-    String plantType;
+    String type;
 
     String name;
 
@@ -24,7 +24,7 @@ public class PlantDTO {
 
     //Constructor brugt til tests
     public PlantDTO(String plantType, String name, int maxHeight, double price) {
-        this.plantType = plantType;
+        this.type = type;
         this.name = name;
         this.maxHeight = maxHeight;
         this.price = price;

@@ -6,7 +6,7 @@ import dat.dto.PlantDTO;
 import io.javalin.http.Handler;
 
 
-public class PlantController implements iPlantController {
+public class PlantControllerMock implements iPlantController {
 
     PlantDAOMock plantDAOMock = new PlantDAOMock();
 
@@ -16,8 +16,8 @@ public class PlantController implements iPlantController {
     public Handler getAll() {
         return ctx -> {
             try {
-           ctx.json(plantDAOMock.getAll());
-           ctx.status(202);
+                ctx.json(plantDAOMock.getAll());
+                ctx.status(202);
             } catch (Exception e) {
                 throw new ApiException(500, "internal server error");
             }
@@ -61,8 +61,25 @@ public class PlantController implements iPlantController {
     //Interface kontrakt passer.
     public Handler add() {
         return ctx -> {
-                PlantDTO newPlant = ctx.bodyAsClass(PlantDTO.class);
-                ctx.status(201);
-            };
-        }
-        }
+            PlantDTO newPlant = ctx.bodyAsClass(PlantDTO.class);
+            ctx.status(201);
+        };
+    }
+
+
+    //Updating the id
+    public Handler update(int id) {
+        return ctx -> {
+            PlantDTO plant = ctx.bodyAsClass(PlantDTO.class);
+            plantDAOMock.update(id, plant);
+            ctx.status(200); //updated
+        };
+    }
+
+    public Handler delete(int id) {
+        return ctx -> {
+            plantDAOMock.delete(id);
+            ctx.status(204); //deleted
+        };
+    }
+}

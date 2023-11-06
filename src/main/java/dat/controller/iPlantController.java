@@ -1,7 +1,5 @@
 package dat.controller;
 
-import dat.dao.PlantDAOMock;
-import dat.dto.PlantDTO;
 import io.javalin.http.Handler;
 
 public interface iPlantController {
@@ -18,6 +16,11 @@ public interface iPlantController {
 
     //#4
     public Handler add();
+
+    //#Put (update metode)
+    public Handler update(int id);
+
+    public Handler delete(int id);
 
     //#5 - ikke i brug, men del af CRUD
     // public Handler deletePlant();

@@ -47,7 +47,7 @@ public class PlantCenterDAO implements iDAO<PlantDTO, String, Plant> {
 
     @Override
     public Plant add(PlantDTO plantDTO) {
-        Plant plant = new Plant(plantDTO.getPlantType(), plantDTO.getName(), plantDTO.getMaxHeight(), plantDTO.getPrice());
+        Plant plant = new Plant(plantDTO.getType(), plantDTO.getName(), plantDTO.getMaxHeight(), plantDTO.getPrice());
         try (EntityManager em = emf.createEntityManager()) {
             //starter en transaction
             em.getTransaction().begin();
@@ -60,10 +60,11 @@ public class PlantCenterDAO implements iDAO<PlantDTO, String, Plant> {
         }
     }
 
-    /// ---- 3 extra methods ----:
+    /// ---- 4 extra methods ----:
 
     //Find er den eneste som må ligge FØR em.begin() - fordi den ikke ændrer noget i databasen
-    public Plant deletePlant(int id) {
+    //delete-route
+    public Plant delete(int id) {
         try (EntityManager em = emf.createEntityManager()) {
             //finder min plante på id
             Plant plant = em.find(Plant.class, id);
@@ -74,6 +75,21 @@ public class PlantCenterDAO implements iDAO<PlantDTO, String, Plant> {
             //gemmer min plante
             em.getTransaction().commit();
             //returnerer min plante :)
+            return plant;
+        }
+    }
+
+    //Updater plantobjects
+    public Plant update(int id, Plant plantobj) {
+        try (EntityManager em = emf.createEntityManager()) {
+            Plant plant = em.find(Plant.class, id);
+            em.getTransaction().begin();
+            plant.setName(plantobj.getName());
+            plant.setType(plantobj.getType());
+            plant.setMaxHeight(plantobj.getMaxHeight());
+            plant.setPrice(plantobj.getPrice());
+            em.merge(plant);
+            em.getTransaction().commit();
             return plant;
         }
     }
@@ -112,3 +128,4 @@ public class PlantCenterDAO implements iDAO<PlantDTO, String, Plant> {
         }
     }
 }
+

@@ -2,15 +2,9 @@ package dat;
 
 import dat.config.AppConfig;
 import dat.ErrorHandling.MyLogger;
-import dat.controller.PlantController;
-import dat.dto.PlantDTO;
 import dat.routes.PlantRoutes;
-import io.javalin.Javalin;
-import io.javalin.apibuilder.EndpointGroup;
 
 import java.io.IOException;
-
-import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class Main {
 

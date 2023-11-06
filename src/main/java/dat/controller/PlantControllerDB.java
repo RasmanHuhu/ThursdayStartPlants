@@ -2,10 +2,14 @@ package dat.controller;
 
 import dat.ErrorHandling.ApiException;
 import dat.dao.PlantCenterDAO;
-import dat.dao.PlantDAOMock;
 import dat.dto.PlantDTO;
 import dat.entities.Plant;
 import io.javalin.http.Handler;
+
+import java.lang.reflect.Type;
+
+//JPA-delen (Funktionel programmering, streams, lambda udtryk, etc.)
+//Bruger DAO'en til at implementere Controller metoderne
 
 public class PlantControllerDB implements iPlantController {
 
@@ -55,6 +59,24 @@ public class PlantControllerDB implements iPlantController {
         };
     }
 
+    // ----- DE EKSTRA -----
+
+
+
+    public Handler update(int id) {
+        return ctx -> {
+            Plant plant = ctx.bodyAsClass(Plant.class);
+            plantCenterDAO.update(id, plant);
+        };
+    }
+
+    @Override
+    public Handler delete(int id) {
+        return ctx -> {
+            plantCenterDAO.delete(id);
+            ctx.status(202); //deleted
+        };
+    }
     //Når de her er lavet, så retter vi i routes i Main
 }
 
