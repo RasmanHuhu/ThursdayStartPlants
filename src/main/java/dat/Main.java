@@ -1,6 +1,7 @@
 package dat;
 
 import dat.config.AppConfig;
+import dat.ErrorHandling.MyLogger;
 import dat.controller.PlantController;
 import dat.dto.PlantDTO;
 import dat.routes.PlantRoutes;
@@ -23,5 +24,16 @@ public class Main {
         //Starter javalin op, gennem config, videre gennem plantroutes, på port 7070
         config.startJavalin(plantRoutes.PlantRoutes(), 7070);
 
+        // ---- MED LOGGER ----
+
+        // Log some information using your logger
+        MyLogger.logger.info("Application started successfully.");
+
+        try {
+            // Your code that may raise exceptions
+        } catch (Exception e) {
+            // Log exceptions using your logger
+            MyLogger.logger.severe("Exception occurred: " + e.getMessage());
+        }
     }
 }

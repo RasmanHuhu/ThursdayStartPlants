@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class MyLogger {
     // Create a private static Logger instance for MyLogger
-    private static final Logger logger = Logger.getLogger(MyLogger.class.getName());
+    public static final Logger logger = Logger.getLogger(MyLogger.class.getName());
 
     // Configure the logger to write log messages to "app.log" file
     static {
