@@ -94,6 +94,7 @@ class PlantCenterDAOTest {
        //? -> assertThrows(ApiException.class, () -> plantCenterDAO.getById(?));
     }
 
+    //Finder hvor manger "Roser" der findes på size
     @Test
     void getByType(){
         List<Plant> plantsByType = plantCenterDAO.getByType("Rose");
